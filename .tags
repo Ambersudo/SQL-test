@@ -1,0 +1,28 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+SQL-test	C:\Users\lpd\Documents\GitHub\SQL-test\README.md	/^# SQL-test$/;"	function	line:1
+学习记录	C:\Users\lpd\Documents\GitHub\SQL-test\README.md	/^## 学习记录$/;"	function	line:3
+问题记录	C:\Users\lpd\Documents\GitHub\SQL-test\README.md	/^## 问题记录$/;"	function	line:13
+例1-1：使用子句列出订购物品 RGAN01 的所有顾客	C:\Users\lpd\Documents\GitHub\SQL-test\README.md	/^### 例1-1：使用子句列出订购物品 RGAN01 的所有顾客$/;"	function	line:20
+例2：显示Customers表中每个顾客的订单总数。订单与相应的顾客ID存储在Orders表中。	C:\Users\lpd\Documents\GitHub\SQL-test\README.md	/^### 例2：显示Customers表中每个顾客的订单总数。订单与相应的顾客ID存储在Orders表中。$/;"	function	line:53
+例2原文解释	C:\Users\lpd\Documents\GitHub\SQL-test\README.md	/^### 例2原文解释$/;"	function	line:94
+例2的另一种想法	C:\Users\lpd\Documents\GitHub\SQL-test\README.md	/^### 例2的另一种想法$/;"	function	line:148
+例1-2：使用连接列出订购物品 RGAN01 的所有顾客	C:\Users\lpd\Documents\GitHub\SQL-test\README.md	/^### 例1-2：使用连接列出订购物品 RGAN01 的所有顾客$/;"	function	line:185
+例1-2原文解释	C:\Users\lpd\Documents\GitHub\SQL-test\README.md	/^### 例1-2原文解释$/;"	function	line:233
+附录E SQL保留字	C:\Users\lpd\Documents\GitHub\SQL-test\SQL������.md	/^# 附录E SQL保留字$/;"	function	line:1
+代码	C:\Users\lpd\Documents\GitHub\SQL-test\SQL��֪�ػ�����ʹ�õĴ��뼰����.md	/^# 代码$/;"	function	line:1
+A.1 样例表	C:\Users\lpd\Documents\GitHub\SQL-test\SQL��֪�ػ�����ʹ�õĴ��뼰����.md	/^## A.1 样例表$/;"	function	line:211
+**表的描述**	C:\Users\lpd\Documents\GitHub\SQL-test\SQL��֪�ػ�����ʹ�õĴ��뼰����.md	/^### **表的描述**$/;"	function	line:224
+Customers	C:\Users\lpd\Documents\GitHub\SQL-test\SQL��֪�ػ�����ʹ�õĴ��뼰����.md	/^# Customers$/;"	function	line:313
+Vendors	C:\Users\lpd\Documents\GitHub\SQL-test\SQL��֪�ػ�����ʹ�õĴ��뼰����.md	/^# Vendors$/;"	function	line:323
+Products	C:\Users\lpd\Documents\GitHub\SQL-test\SQL��֪�ػ�����ʹ�õĴ��뼰����.md	/^# Products$/;"	function	line:334
+OrderItems	C:\Users\lpd\Documents\GitHub\SQL-test\SQL��֪�ػ�����ʹ�õĴ��뼰����.md	/^# OrderItems$/;"	function	line:348
+Orders	C:\Users\lpd\Documents\GitHub\SQL-test\SQL��֪�ػ�����ʹ�õĴ��뼰����.md	/^# Orders$/;"	function	line:371
+student	C:\Users\lpd\Documents\GitHub\SQL-test\�����ӡ������ӵȸ���JOIN.sql	/^CREATE TABLE student$/;"	table	line:29
+student.snum	C:\Users\lpd\Documents\GitHub\SQL-test\�����ӡ������ӵȸ���JOIN.sql	/^  snum varchar(20),$/;"	field	line:31
+student.sname	C:\Users\lpd\Documents\GitHub\SQL-test\�����ӡ������ӵȸ���JOIN.sql	/^  sname varchar(20),$/;"	field	line:32
+student.scode	C:\Users\lpd\Documents\GitHub\SQL-test\�����ӡ������ӵȸ���JOIN.sql	/^  scode varchar(20),$/;"	field	line:33

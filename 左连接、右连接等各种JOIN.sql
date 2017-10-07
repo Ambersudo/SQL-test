@@ -1,5 +1,6 @@
 # 左连接、右连接等各种JOIN
 
+https://zh.wikipedia.org/wiki/%E8%BF%9E%E6%8E%A5_(SQL)
 
 因工作需要，自己啃SQL，第一个遇到疑难点的就是各种 JOIN
 
