@@ -208,98 +208,10 @@ INSERT INTO OrderItems(order_num, order_item, prod_id, quantity, item_price)
 VALUES(20009, 3, 'BNBG03', 250, 2.49);
 ```
 
-## A.1 样例表
-
-本书中所用的表是一个假想玩具经销商使用的订单录入系统的组成部分。这些表用来完成以下几项任务：
-
-- 管理供应商；
-- 管理产品目录；
-- 管理顾客列表；
-- 录入顾客订单。
-
-完成它们需要5个表（它们作为一个关系数据库设计的组成部分紧密关联）。以下各节给出每个表的描述。
-
-1. Vendors
-
-`Vendors`表存储销售产品的供应商。每个供应商在这个表中有一个记录，供应商ID列（`vend_id`）用于进行产品与供应商的匹配。
-
- | 列            | 说 明
- | ------------ | ---------
- | vend_id      | 唯一的供应商ID  |
- | vend_name    | 供应商名      |
- | vend_address | 供应商的地址    |
- | vend_city    | 供应商所在城市   |
- | vend_state   | 供应商所在州    |
- | vend_zip     | 供应商地址邮政编码 |
- | vend_country | 供应商所在国家   |
-
-- 所有表都应该有主键。这个表应该用`vend_id`作为其主键。
-
-2. Products表
-
-`Products`表包含产品目录，每行一个产品。每个产品有唯一的ID（`prod_id`列），并且借助`vend_id`（供应商的唯一ID）与供应商相关联。
-
-
- | 列          | 说 明
- | ---------- | ----------------------------
- | prod_id    | 唯一的产品ID                      |
- | vend_id    | 产品供应商ID（关联到Vendors表的vend_id） |
- | prod_name  | 产品名                          |
- | prod_price | 产品价格                         |
- | prod_desc  | 产品描述                         |
-
-- 所有表都应该有主键。这个表应该用`prod_id`作为其主键。
-- 为实施引用完整性，应该在`vend_id`上定义一个外键，关联到`Vendors`的`vend_id`列。
-
-3. Customers表
-
-`Customers`表存储所有顾客信息。每个顾客有唯一的ID（`cust_id`列）。
-
-
- | 列            | 说 明
- | ------------ | ---------
- | cust_id      | 唯一的顾客ID   |
- | cust_name    | 顾客名       |
- | cust_address | 顾客的地址     |
- | cust_city    | 顾客所在城市    |
- | cust_state   | 顾客所在州     |
- | cust_zip     | 顾客地址邮政编码  |
- | cust_country | 顾客所在国家    |
- | cust_contact | 顾客的联系名    |
- | cust_email   | 顾客的电子邮件地址 |
-
-- 所有表都应该有主键。这个表应该用`cust_id`作为它的主键。
-
-4. Orders表
-
-`Orders`表存储顾客订单（不是订单细节）。每个订单唯一编号（`order_num`列）。`Orders`表按`cust_id`列（关联到`Customers`表的顾客唯一ID）关联到相应的顾客。
-
- | 列          | 说 明
- | ---------- | -----------------------------
- | order_num  | 唯一的订单号                        |
- | order_date | 订单日期                          |
- | cust_id    | 订单顾客ID（关联到Customers表的cust_id） |
-
-- 所有表都应该有主键。这个表应该用`order_num`作为其主键。
-- 为实施引用完整性，应该在`cust_id`上定义一个外键，关联到`Customers`的`cust_id`列。 - **5\. `OrderItems`表**
-
-`OrderItems`表存储每个订单中的实际物品，每个订单的每个物品一行。对于`Orders`表的每一行，在`OrderItems`表中有一行或多行。每个订单物品由订单号加订单物品（第一个物品、第二个物品等）唯一标识。订单物品用`order_num`列（关联到`Orders`表中订单的唯一ID）与其相应的订单相关联。此外，每个订单物品包含该物品的产品ID（把物品关联到`Products`表）。
-
-
- | 列          | 说 明
- | ---------- | --------------------------
- | order_num  | 订单号（关联到Orders表的order_num）  |
- | order_item | 订单物品号（订单内的顺序）              |
- | prod_id    | 产品ID（关联到Products表的prod_id） |
- | quantity   | 物品数量                       |
- | item_price | 物品价格                       |
-
-- 所有表都应该有主键。这个表应该用`order_num`和`order_item`作为其主键。
-- 为实施引用完整性，应该在`order_num`和`prod_id`上定义外键，关联`order_num`到`Orders`的`order_num`列，关联`prod_id`到`Products`的`prod_id`列。
 
 # Customers
 
- cust_id   |   cust_name   |     cust_address     | cust_city | cust_state | cust_zip | cust_country |    cust_contact    |      cust_email
+ cust_id唯一的顾客ID   |   cust_name顾客名   |     cust_address顾客的地址     | cust_city顾客所在城市 | cust_state顾客所在州 | cust_zip顾客地址邮政编码 | cust_country顾客所在国家 |    cust_contact顾客的联系名    |      cust_email顾客的电子邮件地址
 :--------: | :-----------: | :------------------: | :-------: | :--------: | :------: | :----------: | :----------------: | :-------------------:
 1000000001 | Village Toys  |    200 Maple Lane    |  Detroit  |     MI     |  44444   |     USA      |     John Smith     | sales@villagetoys.com
 1000000002 |  Kids Place   | 333 South Lake Drive | Columbus  |     OH     |  43333   |     USA      |   Michelle Green   |         NULL
@@ -307,9 +219,10 @@ VALUES(20009, 3, 'BNBG03', 250, 2.49);
 1000000004 |    Fun4All    | 829 Riverside Drive  |  Phoenix  |     AZ     |  88888   |     USA      | Denise L. Stephens | dstephens@fun4all.com
 1000000005 | The Toy Store |   4545 53rd Street   |  Chicago  |     IL     |  54545   |     USA      |     Kim Howard     |         NULL
 
+
 # Vendors
 
-vend_id |    vend_name    |  vend_address   | vend_city  | vend_state | vend_zip | vend_country
+vend_id唯一的供应商ID |    vend_name供应商名    |  vend_address供应商的地址   | vend_city供应商所在城市  | vend_state供应商所在州 | vend_zip供应商地址邮政编码 | vend_country供应商所在国家
 :-----: | :-------------: | :-------------: | :--------: | :--------: | :------: | :----------:
  BRE02  |  Bear Emporium  | 500 Park Street |  Anytown   |     OH     |  44333   |     USA
  BRS01  |   Bears R Us    | 123 Main Street | Bear Town  |     MI     |  44444   |     USA
@@ -320,7 +233,7 @@ vend_id |    vend_name    |  vend_address   | vend_city  | vend_state | vend_zip
 
 # Products
 
-prod_id | vend_id |      prod_name      | prod_price | prod_desc
+prod_id唯一的产品ID | vend_id产品供应商ID |      prod_name产品名      | prod_price产品价格 | prod_desc产品描述
 :-----: | :-----: | :-----------------: | :--------: | ---------------------------------------------------------------------
 BNBG01  |  DLL01  |  Fish bean bag toy  |    3.49    | Fish bean bag toy, complete with bean bag worms with which to feed it
 BNBG02  |  DLL01  |  Bird bean bag toy  |    3.49    | Bird bean bag toy, eggs are not included
@@ -332,9 +245,9 @@ RGAN01  |  DLL01  |     Raggedy Ann     |    4.99    | 18 inch Raggedy Ann doll
  RYL01  |  FNG01  |      King doll      |    9.49    | 12 inch king doll with royal garments and crown
  RYL02  |  FNG01  |     Queen doll      |    9.49    | 12 inch queen doll with royal garments and crown
 
-# OrderItems
+# OrderItems 存储每个订单中的实际物品，一个订单中会有多个物品
 
-order_num | order_item | prod_id | quantity | item_price
+order_num订单号 | order_item订单物品号（订单内的顺序） | prod_id产品ID | quantity物品数量 | item_price物品价格
 :-------: | :--------: | :-----: | :------: | :--------:
   20005   |     1      |  BR01   |   100    |    5.49
   20005   |     2      |  BR03   |   100    |   10.99
@@ -357,7 +270,7 @@ order_num | order_item | prod_id | quantity | item_price
 
 # Orders
 
-order_num |     order_date     |  cust_id
+order_num唯一的订单号 |     order_date订单日期     |  cust_id订单顾客ID
 :-------: | :----------------: | :--------:
   20005   | 2012/05/01 0:00:00 | 1000000001
   20006   | 2012/01/12 0:00:00 | 1000000003
