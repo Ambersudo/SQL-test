@@ -8,4 +8,4 @@
 ## 问题记录 汇总于[Issues](https://github.com/lpd743663/SQL-test/issues) 
 
 
-#4
+[疑问](/issues/4)
