@@ -46,7 +46,7 @@ select * from gbt
 输入▼
 
 ```sql
-select a, conut(b) from gbt
+select a, count(b) from gbt
 group by a
 ```
 
@@ -81,27 +81,9 @@ b	5
 输入▼
 
 ```sql
-select b, count(a)
+select a, b, c, count(a)
 from gbt
-group by b
-```
-
-输出▼
-
-```
-a	b	(无列名)
-----------------------------------------
-1	a	5
-1	b	5
-```
-
----
-输入▼
-
-```sql
-select b, count(a)
-from gbt
-group by b
+group by a, b, c
 ```
 
 输出▼
@@ -168,7 +150,7 @@ a	b	c	d	(无列名)
 
 以 group by a, b , c,d 为例
 
-1. a,b,c,d 的顺序不影响结果
+1. group by 后面的 a,b,c,d 的顺序不影响结果
 
 1. 整个流程：首先把a,b,c,d 四列的内容拼接起来
     - 1a甲W

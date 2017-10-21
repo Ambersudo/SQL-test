@@ -396,7 +396,7 @@
     114      Mark        Mark@hotmail.com        3000       20
 
 
-ON DELETE CASCADE 子句的作用是，当主表中的一行数据被删除时，ORACLE自动将从表中依赖于它的记录外键也删除。
+    ON DELETE CASCADE 子句的作用是，当主表中的一行数据被删除时，ORACLE自动将从表中依赖于它的记录外键也删除。
 
 --为从表删除约束后新增带on delete cascade的外键约束
     ALTER TABLE tb_constraint_2
@@ -444,8 +444,8 @@ ON DELETE CASCADE 子句的作用是，当主表中的一行数据被删除时�
 
 ### 1. 添加主键约束
 ```sql
-ALTER TABLE tb_cons2
-ADD CONSTRAINT pk_tb_cons2_empno PRIMARY KEY(empno);
+    ALTER TABLE tb_cons2
+    ADD CONSTRAINT pk_tb_cons2_empno PRIMARY KEY(empno);
 ```
 
 ### 2. 添加非空约束
@@ -467,16 +467,22 @@ ADD CONSTRAINT pk_tb_cons2_empno PRIMARY KEY(empno);
 
     ALTER TABLE tb_cons2
     MODIFY (ename CONSTRAINT nn_tb_cons2_ename NOT NULL);
+```
 
 ### 3. 添加唯一约束
+```sql
     ALTER TABLE tb_cons2
     ADD CONSTRAINT uk_tb_cons2_email UNIQUE(email);
+```
 
 ### 4. 添加CHECK约束
+```sql
     ALTER TABLE tb_cons2
     ADD CONSTRAINT ck_tb_cons2_sal CHECK(sal>1500);
+```
 
 ### 5. 添加外键约束
+```sql
     ALTER TABLE tb_cons2
     ADD CONSTRAINT fk_tb_cons2_tb_dept_deptno
     FOREIGN KEY(deptno) REFERENCES tb_dept(deptno)
@@ -529,7 +535,8 @@ ADD CONSTRAINT pk_tb_cons2_empno PRIMARY KEY(empno);
 ### 7. 启用约束
 
 ENABLE子句可将当前无效的约束启用
-当定义或启用UNIQUE或PRIMARY KEY约束时系统会自动创建UNIQUE或PRIMARY KEY索引
+
+当定义或启用 UNIQUE 或 PRIMARY KEY 约束时系统会自动创建 UNIQUE 或 PRIMARY KEY 索引
 ```sql
 --启用约束时不支持CASCADE，对被级联禁用的约束应根据需要逐个启用
     ALTER TABLE tb_dept
