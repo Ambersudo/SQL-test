@@ -16,10 +16,11 @@
 
 **表8-1 DBMS函数的差异**
 
-| 函　　数 | 语　　法 |
-| 提取字符串的组成部分 | Access使用MID()；DB2、Oracle、PostgreSQL和SQLite使用SUBSTR()；MySQL和SQL Server使用SUBSTRING() |
-| 数据类型转换 | Access和Oracle使用多个函数，每种类型的转换有一个函数；DB2和PostgreSQL使用CAST()；MariaDB、MySQL和SQL Server使用CONVERT() |
-| 取当前日期 | Access使用NOW()；DB2和PostgreSQL使用CURRENT_DATE；MariaDB和MySQL使用CURDATE()；Oracle使用SYSDATE；SQL Server使用GETDATE()；SQLite使用DATE() |
+ 函　　数 | 语　　法 
+ --------|--------
+ 提取字符串的组成部分 | Access使用MID()；DB2、Oracle、PostgreSQL和SQLite使用SUBSTR()；MySQL和SQL Server使用SUBSTRING() 
+ 数据类型转换 | Access和Oracle使用多个函数，每种类型的转换有一个函数；DB2和PostgreSQL使用CAST()；MariaDB、MySQL和SQL Server使用CONVERT() 
+ 取当前日期 | Access使用NOW()；DB2和PostgreSQL使用CURRENT_DATE；MariaDB和MySQL使用CURDATE()；Oracle使用SYSDATE；SQL Server使用GETDATE()；SQLite使用DATE() 
 
 可以看到，与SQL语句不一样，SQL函数不是可移植的。这表示为特定SQL实现编写的代码在其他实现中可能不正常。
 
