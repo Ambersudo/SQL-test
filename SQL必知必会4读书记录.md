@@ -16,11 +16,11 @@
 
 **表8-1 DBMS函数的差异**
 
- 函　　数 | 语　　法 
+ 函　　数 | 语　　法
  --------|--------
- 提取字符串的组成部分 | Access使用MID()；DB2、Oracle、PostgreSQL和SQLite使用SUBSTR()；MySQL和SQL Server使用SUBSTRING() 
- 数据类型转换 | Access和Oracle使用多个函数，每种类型的转换有一个函数；DB2和PostgreSQL使用CAST()；MariaDB、MySQL和SQL Server使用CONVERT() 
- 取当前日期 | Access使用NOW()；DB2和PostgreSQL使用CURRENT_DATE；MariaDB和MySQL使用CURDATE()；Oracle使用SYSDATE；SQL Server使用GETDATE()；SQLite使用DATE() 
+ 提取字符串的组成部分 | Access使用MID()；DB2、Oracle、PostgreSQL和SQLite使用SUBSTR()；MySQL和SQL Server使用SUBSTRING()
+ 数据类型转换 | Access和Oracle使用多个函数，每种类型的转换有一个函数；DB2和PostgreSQL使用CAST()；MariaDB、MySQL和SQL Server使用CONVERT()
+ 取当前日期 | Access使用NOW()；DB2和PostgreSQL使用CURRENT_DATE；MariaDB和MySQL使用CURDATE()；Oracle使用SYSDATE；SQL Server使用GETDATE()；SQLite使用DATE()
 
 可以看到，与SQL语句不一样，SQL函数不是可移植的。这表示为特定SQL实现编写的代码在其他实现中可能不正常。
 
@@ -665,13 +665,13 @@ FNG01       2
 上面的`SELECT`语句指定了两个列：`vend_id`包含产品供应商的ID，`num_prods`为计算字段（用`COUNT(*)`函数建立）。`GROUP BY`子句指示DBMS按`vend_id`排序并分组数据。这就会对每个`vend_id`而不是整个表计算`num_prods`一次。从输出中可以看到，供应商`BRS01`有`3`个产品，供应商`DLL01`有`4`个产品，而供应商`FNG01`有`2`个产品。
 
 因为使用了`GROUP BY`，就不必指定要计算和估值的每个组了。系统会自动完成。`GROUP BY`子句指示DBMS分组数据，然后对每个组而不是整个结果集进行聚集。
-qu++03：（这个分析乍看过去，都懂，但是看了下面的说明，以及后面的习题，发现还是没有理解透） `GROUP BY`返回不重复的值，将相同的值合并为一个分组。
+[qu++01（算是解决了）:这个分析乍看过去，都懂，但是看了下面的说明，以及后面的习题，发现还是没有理解透](https://github.com/lpd743663/SQL-test/issues/5)： `GROUP BY`返回不重复的值，将相同的值合并为一个分组。
 
-在使用`GROUP BY`子句前，需要知道一些重要的规定。mk++01
+在使用`GROUP BY`子句前，需要知道一些重要的规定。
 
-*   `GROUP BY`子句可以包含任意数目的列，因而可以对分组进行嵌套，更细致地进行数据分组。
+*   `GROUP BY`子句可以包含任意数目的列，因而可以对分组进行嵌套，更细致地进行数据分组。mk++01：缺案例说明
 *   如果在`GROUP BY`子句中嵌套了分组，数据将在最后指定的分组上进行汇总。换句话说，在建立分组时，指定的所有列都一起计算（所以不能从个别的列取回数据）。
-*   `GROUP BY`子句中列出的每一列都必须是检索列或有效的表达式（但不能是聚集函数）。如果在`SELECT`中使用表达式，则必须在`GROUP BY`子句中指定相同的表达式。不能使用别名。qu++01:有效的表达式（但不能是聚集函数） 是指什么？qu++02:`SELECT` 后面的列的数量、列名 与 `GROUP BY` 后面的列的数量、列名（同一个列名代表同一列），有什么关联、关系？
+*   `GROUP BY`子句中列出的每一列都必须是检索列或有效的表达式（但不能是聚集函数）。如果在`SELECT`中使用表达式，则必须在`GROUP BY`子句中指定相同的表达式。不能使用别名。[qu++02有效的表达式（但不能是聚集函数） 是指什么？](https://github.com/lpd743663/SQL-test/issues/6)[qu++03（已经解决）:`SELECT` 后面的列的数量、列名 与 `GROUP BY` 后面的列的数量、列名（同一个列名代表同一列），有什么关联、关系？](https://github.com/lpd743663/SQL-test/issues/7):
 *   大多数SQL实现不允许`GROUP BY`列带有长度可变的数据类型（如文本或备注型字段）。
 *   除聚集计算语句外，`SELECT`语句中的每一列都必须在`GROUP BY`子句中给出。
 *   如果分组列中包含具有`NULL`值的行，则`NULL`将作为一个分组返回。如果列中有多行`NULL`值，它们将分为一组。
@@ -782,6 +782,7 @@ FNG01       2
 **表10-1 ORDER BY与GROUP BY**
 
 | ORDER BY | GROUP BY |
+|----------|----------|
 | 对产生的输出排序 | 对行分组，但输出可能不是分组的顺序 |
 | 任意列都可以使用（甚至非选择的列也可以使用） | 只可能使用选择列或表达式列，而且必须使用每个选择列表达式 |
 | 不一定需要 | 如果与聚集函数一起使用列（或表达式），则必须使用 |
@@ -1027,7 +1028,7 @@ The Toy Store                     Kim Howard
 可见，在`WHERE`子句中使用子查询能够编写出功能很强且很灵活的SQL语句。对于能嵌套的子查询的数目没有限制，不过在实际使用时由于性能的限制，不能嵌套太多的子查询。
 
 > **警告：只能是单列**
-> mk++02：作为子查询的`SELECT`语句只能查询单个列。企图检索多个列将返回错误。
+> 作为子查询的`SELECT`语句只能查询单个列。企图检索多个列将返回错误。mk++02：缺案例说明
 
 > **警告：子查询和性能**
 > 这里给出的代码有效，并且获得了所需的结果。但是，使用子查询并不总是执行这类数据检索的最有效方法。更多的论述，请参阅第12课，其中将再次给出这个例子。
@@ -1043,114 +1044,7 @@ The Toy Store                     Kim Howard
 
 正如前两课所述，可以使用`SELECT COUNT(*)`对表中的行进行计数，并且通过提供一条`WHERE`子句来过滤某个特定的顾客ID，仅对该顾客的订单进行计数。例如，下面的代码对顾客`1000000001`的订单进行计数：
 
-ex++01
-
-思路反推：（在解决不了这个问题，答案又看不懂的情况下，复盘之前写这些代码的原因，及这些代码的问题，可能与最开始的想法有些出入，大致应该是一致的）
-原先的想法是：首先我们的结果是得到一个表，表中包含 每个客户的名字，及其对应的订单数量 顾客信息 使用SELECT 从表中获取
-最后一个 订单数量 这个字段的数据如何形成 count ？，展现出来肯定还是使用
-SELECT cust_id,
-         cust_name,
-         cust_contact
-qu++01 前面这些都没有问题，问题在于订单数量如何获取，同时再与左侧字段的数据一一对应？不知道，卡在这里。
-
-
-
-根据前面所学的，子句、嵌套，将整个查询语句拆分成以下2段
-
-SELECT cust_id,
-         count(cust_id) AS pn1
-FROM Orders
-GROUP BY  cust_id
-这段代码的结果是正确，问题在于，客户数量不完整，在 Orders 表中，有一个客户没有下单z这个作为一个子句如何搭配？
-
-
-SELECT cust_id,
-         cust_name,
-         cust_contact,
-         count(order_num)
-FROM Customers, Orders
-WHERE Customers.cust_id = Orders.cust_id
-GROUP BY  cust_id
-这个组合的代码，就是随便拼凑起来的了，很直白的参考之前所学的内容。组合有误。
-问题：
-1. select 后面列数过多，与group by 不符
-1. count 列有误，应该以顾客id、顾客姓名 进行分组——————注意唯一性、可连接性
-
-更新：2017-10-10 ▼
-select Customers.cust_id,count(Orders.cust_id)
-from Customers, Orders
-where Customers.cust_id = Orders.cust_id
-GROUP BY Customers.cust_id
-
-select Customers.cust_id,count(Orders.cust_id)as cust_order
-from Customers left join  Orders
-on Customers.cust_id = Orders.cust_id
-GROUP BY Customers.cust_id
-
-select Customers.cust_id, cust_name, count(Orders.cust_id)as cust_order
-from Customers left join  Orders
-on Customers.cust_id = Orders.cust_id
-GROUP BY Customers.cust_id, cust_name--多个列 对性能的影响如何？
-更新：2017-10-10 ▲
-上面的代码是从下面的代码修改过来。
-SELECT cust_id,
-         cust_name,
-         cust_contact,
-    (SELECT count(*)
-    FROM Orders
-    WHERE Customers.cust_id = Orders.cust_id) AS pn1
-FROM Customers
-GROUP BY  cust_id
-/*
-QU--02 这是参考正确答案后修改的代码，多了group by 语句， 为什么不需要GROUP BY  函数，就能够分组？原先就不需要分组 ？
-题目中原有的意思是，列出每个顾客的订单，0订单的也显示为0，而不是不显示。 select语句是抽取相关字段的数据
-QU--01 问题：SELECT 子句中的数据如何 与 前面2列的数据一一对应？
-WHERE 条件只适用于子句查询，这个子句查询是什么意思呢？
-*/
-
-ex++02:另一种想法
-QU--03 换一种思路，首先创建一个表（临时表？index，索引？不存储在硬盘，只暂存于内存中？）
-每个顾客 及 每个顾客对应的订单号，无则为 NULL ——> 适用JOIN
-*/
-
-SELECT Customers.cust_id,
-         cust_name,
-         cust_contact,
-         order_num,
-         order_date
-FROM Customers, Orders
-WHERE Customers.cust_id = Orders.cust_id
-
-/*
-上面这段代码，如果顾客没有购买的话，就没有显示出来。不符合题目要求：列出每个顾客的订单，0订单的也显示为0，而不是不显示。
-QU--04 那么下面这段代码与 inner jion 很类似啊？ 有什么区别？
-*/
-
-SELECT Customers.cust_id,
-         cust_name,
-         cust_contact,
-         order_num,
-         order_date
-FROM Customers
-INNER JOIN Orders
-    ON Customers.cust_id = Orders.cust_id
-
---ANS--04 这2段代码的的结果是一样的，其含义也都一样，都是以 cust_id 为链接，返回左右侧有关联的所有数据
-
-SELECT Customers.cust_id,
-         cust_name,
-         cust_contact,
-         order_num,
-         order_date
-FROM Customers
-LEFT JOIN Orders
-    ON Customers.cust_id = Orders.cust_id
-
-/*
-然后再对上面的表进行count，统计每个客户的订单数量。
-MK--01 重点：左表对应的 右表，有多条记录时，汇总表中，也会体现多种表。
-不仅仅是交集的概念，还有全排列的概念。
-*/
+[ex++01独立写代码的过程](https://github.com/lpd743663/SQL-test/issues/8)
 
 **输入▼**
 
@@ -1501,54 +1395,7 @@ WHERE cust_id IN (SELECT cust_id
 
 如第11课所述，子查询并不总是执行复杂`SELECT`操作的最有效方法，下面是使用联结的相同查询：
 
-ex++03：我的想法：使用连接的写法，替代之前的子查询
-
-左连接也分步骤，分子句来写，然后再组合 第一步连接购买该产品的顾客及其id
-
-SELECT cust_id,
-         prod_id
-FROM OrderItems
-LEFT JOIN Orders
-    ON OrderItems.order_num = Orders.order_num
-WHERE prod_id = 'RGAN01'
-
-/*
-输出▼
-cust_id    prod_id
----------- -------
-1000000004 RGAN01
-1000000005 RGAN01
-
-看到这个表，发现再使用子句，是一件很蠢的事情，应该继续使用连接
-问题：如果我们没有看到这个表，我们能想得到使用连接是怎么一个过程的么？ 要有抽象思维，想象一个表？
-*/
-
---根据已知条件 最终的表是XXX，再从后往前推
-
-SELECT cust_name,
-         cust_contact
-FROM OrderItems
-LEFT JOIN Orders
-    ON OrderItems.order_num = Orders.order_num
-WHERE prod_id = 'RGAN01'
-LEFT JOIN Customers
-    ON Orders.cust_id = Customers.cust_id --错误：关键字 'left' 附近有语法错误
-
-SELECT cust_id,
-         prod_id,
-         cust_name,
-         cust_contact
-FROM OrderItems
-LEFT JOIN Orders
-    ON OrderItems.order_num = Orders.order_num
-WHERE prod_id = 'RGAN01'
-LEFT JOIN Customers
-    ON Orders.cust_id = Customers.cust_id --QU--05仍然不行，一样的错误提示，多个LEFT JOIN 该如何连接？并且同时伴有WHERE
-
-QU--06 问题：上面的代码如何使用INNER JOIN 来写？
-延伸：使用 JOIN 的时候，似乎是有顺序的？第一个连接，形成了一个临时表，这个临时表再与第三个表进行连接
-但是由于这个临时表没有名字？没有定义？所以系统不能进行引用？ 那么，还是临时表的问题？
-*/
+[ex++02我的想法：使用连接的写法，替代之前的子查询](https://github.com/lpd743663/SQL-test/issues/9)
 
 
 **输入▼**
@@ -2280,7 +2127,7 @@ FROM CustNew;
 这个例子使用`INSERT SELECT`从`CustNew`中将所有数据导入`Customers`。`SELECT`语句从`CustNew`检索出要插入的值，而不是列出它们。`SELECT`中列出的每一列对应于`Customers`表名后所跟的每一列。这条语句将插入多少行呢？这依赖于`CustNew`表有多少行。如果这个表为空，则没有行被插入（也不产生错误，因为操作仍然是合法的）。如果这个表确实有数据，则所有数据将被插入到`Customers`。
 mk++03：列数一致，行数（包括0）没有限制。
 > **提示：`INSERT SELECT`中的列名**
-> 为简单起见，这个例子在`INSERT`和`SELECT`语句中使用了相同的列名。但是，不一定要求列名匹配。事实上，DBMS一点儿也不关心`SELECT`返回的列名。它使用的是列的位置，因此`SELECT`中的第一列（不管其列名）将用来填充表列中指定的第一列，第二列将用来填充表列中指定的第二列，如此等等。mk++03：列的名字无所谓，列的位置要正确。
+> 为简单起见，这个例子在`INSERT`和`SELECT`语句中使用了相同的列名。但是，不一定要求列名匹配。事实上，DBMS一点儿也不关心`SELECT`返回的列名。它使用的是列的位置，因此`SELECT`中的第一列（不管其列名）将用来填充表列中指定的第一列，第二列将用来填充表列中指定的第二列，如此等等。mk++04：列的名字无所谓，列的位置要正确。
 
 `INSERT SELECT`中`SELECT`语句可以包含`WHERE`子句，以过滤插入的数据。
 
@@ -2415,7 +2262,7 @@ WHERE cust_id = '1000000005';
 
 ```
 
-其中`NULL`用来去除`cust_email`列中的值。这与保存空字符串很不同（空字符串用`''`表示，是一个值），而`NULL`表示没有值。mk++05：空字符串 与 NULL 的区别是什么？
+其中`NULL`用来去除`cust_email`列中的值。这与保存空字符串很不同（空字符串用`''`表示，是一个值），而`NULL`表示没有值。[qu++05：空字符串 与 NULL 的区别是什么？](https://github.com/lpd743663/SQL-test/issues/10)
 
 ## 16.2 删除数据
 
@@ -2452,7 +2299,7 @@ WHERE cust_id = '1000000006';
 > **提示：`FROM`关键字**
 > 在某些SQL实现中，跟在`DELETE`后的关键字`FROM`是可选的。但是即使不需要，也最好提供这个关键字。这样做将保证SQL代码在DBMS之间可移植。
 
-mk++06：`DELETE`不需要列名或通配符。`DELETE`删除整行而不是删除列。要删除指定的列，请使用`UPDATE`语句。
+mk++05：`DELETE`不需要列名或通配符。`DELETE`删除整行而不是删除列。要删除指定的列，请使用`UPDATE`语句。
 
 > **说明：删除表的内容而不是表**
 > `DELETE`语句从表中删除行，甚至是删除表中所有行。但是，`DELETE`不删除表本身。
@@ -2584,7 +2431,7 @@ CREATE TABLE Vendors
 > 第1课介绍过，主键是其值唯一标识表中每一行的列。只有不允许`NULL`值的列可作为主键，允许`NULL`值的列不能作为唯一标识。
 
 > **警告：理解`NULL`**
-> 不要把`NULL`值与空字符串相混淆。`NULL`值是没有值，不是空字符串。如果指定`''`（两个单引号，其间没有字符），这在`NOT NULL`列中是允许的。空字符串是一个有效的值，它不是无值。`NULL`值用关键字`NULL`而不是空字符串指定。mk++05
+> 不要把`NULL`值与空字符串相混淆。`NULL`值是没有值，不是空字符串。如果指定`''`（两个单引号，其间没有字符），这在`NOT NULL`列中是允许的。空字符串是一个有效的值，它不是无值。`NULL`值用关键字`NULL`而不是空字符串指定。[mk++06](https://github.com/lpd743663/SQL-test/issues/10)=qu++05
 
 ### 17.1.3 指定默认值
 
@@ -2614,6 +2461,7 @@ CREATE TABLE OrderItems
 **表17-1 获得系统日期**
 
 | DBMS | 函数/变量 |
+|------|----------|
 | Access | NOW() |
 | DB2 | CURRENT_DATE |
 | MySQL | CURRENT_DATE() |
