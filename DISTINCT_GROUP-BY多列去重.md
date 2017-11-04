@@ -1,5 +1,10 @@
-
 # DISTINCT、GROUP BY 多列去重
+
+- [DISTINCT、GROUP BY 多列去重](#distinct%E3%80%81group-by-%E5%A4%9A%E5%88%97%E5%8E%BB%E9%87%8D)
+    - [实验数据](#%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE)
+    - [DISTINCT](#distinct)
+    - [GROUP BY](#group-by)
+    - [关于拼接的理解](#%E5%85%B3%E4%BA%8E%E6%8B%BC%E6%8E%A5%E7%9A%84%E7%90%86%E8%A7%A3)
 
 ## 实验数据
 ```sql

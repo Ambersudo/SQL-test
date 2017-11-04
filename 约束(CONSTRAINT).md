@@ -1,9 +1,46 @@
-# SQL基础——约束(CONSTRAINT)
+# 约束(CONSTRAINT)
 
 ## 转载信息
 ```
 原文链接：http://blog.csdn.net/leshami/article/details/5711367
 ```
+
+- [约束(CONSTRAINT)](#%E7%BA%A6%E6%9D%9Fconstraint)
+    - [转载信息](#%E8%BD%AC%E8%BD%BD%E4%BF%A1%E6%81%AF)
+    - [一、几类数据完整性](#%E4%B8%80%E3%80%81%E5%87%A0%E7%B1%BB%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7)
+    - [二、约束](#%E4%BA%8C%E3%80%81%E7%BA%A6%E6%9D%9F)
+    - [三、建表时约束定义](#%E4%B8%89%E3%80%81%E5%BB%BA%E8%A1%A8%E6%97%B6%E7%BA%A6%E6%9D%9F%E5%AE%9A%E4%B9%89)
+        - [1. 定义各种不同的约束](#1-%E5%AE%9A%E4%B9%89%E5%90%84%E7%A7%8D%E4%B8%8D%E5%90%8C%E7%9A%84%E7%BA%A6%E6%9D%9F)
+        - [2. 查看约束的定义信息](#2-%E6%9F%A5%E7%9C%8B%E7%BA%A6%E6%9D%9F%E7%9A%84%E5%AE%9A%E4%B9%89%E4%BF%A1%E6%81%AF)
+        - [3. 定义符合主键约束](#3-%E5%AE%9A%E4%B9%89%E7%AC%A6%E5%90%88%E4%B8%BB%E9%94%AE%E7%BA%A6%E6%9D%9F)
+        - [4. 几种不同约束的冲突提示](#4-%E5%87%A0%E7%A7%8D%E4%B8%8D%E5%90%8C%E7%BA%A6%E6%9D%9F%E7%9A%84%E5%86%B2%E7%AA%81%E6%8F%90%E7%A4%BA)
+            - [a. 主键约束提示](#a-%E4%B8%BB%E9%94%AE%E7%BA%A6%E6%9D%9F%E6%8F%90%E7%A4%BA)
+            - [b. 非空约束提示](#b-%E9%9D%9E%E7%A9%BA%E7%BA%A6%E6%9D%9F%E6%8F%90%E7%A4%BA)
+            - [c. 唯一约束提示](#c-%E5%94%AF%E4%B8%80%E7%BA%A6%E6%9D%9F%E6%8F%90%E7%A4%BA)
+            - [d. CHECK约束提示](#d-check%E7%BA%A6%E6%9D%9F%E6%8F%90%E7%A4%BA)
+            - [e. 外键约束提示](#e-%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E6%8F%90%E7%A4%BA)
+        - [5. 补充](#5-%E8%A1%A5%E5%85%85)
+            - [a. CHECK 约束](#a-check-%E7%BA%A6%E6%9D%9F)
+            - [b. FOREIGN KEY 约束](#b-foreign-key-%E7%BA%A6%E6%9D%9F)
+            - [c. 外键约束对delete语句的影响](#c-%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E5%AF%B9delete%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%BD%B1%E5%93%8D)
+            - [d. 外键约束对 insert 语句的影响](#d-%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E5%AF%B9-insert-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%BD%B1%E5%93%8D)
+            - [e. 外键约束对 delete 语句的影响](#e-%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E5%AF%B9-delete-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%BD%B1%E5%93%8D)
+            - [f. 外键约束对 update 语句的影响](#f-%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E5%AF%B9-update-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%BD%B1%E5%93%8D)
+            - [g. 外键约束对 DDL 语句的影响](#g-%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E5%AF%B9-ddl-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%BD%B1%E5%93%8D)
+            - [h. ON DELETE SET NULL 和　ON DELETE CASCADE 对外键约束的影响](#h-on-delete-set-null-%E5%92%8C-on-delete-cascade-%E5%AF%B9%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E7%9A%84%E5%BD%B1%E5%93%8D)
+            - [i. 为从表删除约束后新增带 on delete set null 的外键约束](#i-%E4%B8%BA%E4%BB%8E%E8%A1%A8%E5%88%A0%E9%99%A4%E7%BA%A6%E6%9D%9F%E5%90%8E%E6%96%B0%E5%A2%9E%E5%B8%A6-on-delete-set-null-%E7%9A%84%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F)
+    - [四、建表后的约束定义](#%E5%9B%9B%E3%80%81%E5%BB%BA%E8%A1%A8%E5%90%8E%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%AE%9A%E4%B9%89)
+        - [1. 添加主键约束](#1-%E6%B7%BB%E5%8A%A0%E4%B8%BB%E9%94%AE%E7%BA%A6%E6%9D%9F)
+        - [2. 添加非空约束](#2-%E6%B7%BB%E5%8A%A0%E9%9D%9E%E7%A9%BA%E7%BA%A6%E6%9D%9F)
+        - [3. 添加唯一约束](#3-%E6%B7%BB%E5%8A%A0%E5%94%AF%E4%B8%80%E7%BA%A6%E6%9D%9F)
+        - [4. 添加CHECK约束](#4-%E6%B7%BB%E5%8A%A0check%E7%BA%A6%E6%9D%9F)
+        - [5. 添加外键约束](#5-%E6%B7%BB%E5%8A%A0%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F)
+        - [6. 禁用约束](#6-%E7%A6%81%E7%94%A8%E7%BA%A6%E6%9D%9F)
+        - [7. 启用约束](#7-%E5%90%AF%E7%94%A8%E7%BA%A6%E6%9D%9F)
+        - [8. 删除约束](#8-%E5%88%A0%E9%99%A4%E7%BA%A6%E6%9D%9F)
+        - [9. 级联约束](#9-%E7%BA%A7%E8%81%94%E7%BA%A6%E6%9D%9F)
+        - [10. 延迟约束](#10-%E5%BB%B6%E8%BF%9F%E7%BA%A6%E6%9D%9F)
+
 
 ## 一、几类数据完整性
 
@@ -328,7 +365,7 @@
 
     如果子表在建外键时，该列的数据并不在父表，则无法创建该约束。
 
-#### c. 外键约束对delete语句的影响：
+#### c. 外键约束对delete语句的影响
     DELETE FROM tb_constraint_2;
 
     2 rows deleted.
@@ -555,7 +592,7 @@ ENABLE子句可将当前无效的约束启用
     ENABLE NOVALIDATE CONSTRAINT ck_cons2_comm;
 ```
 
-### 8. 删除约束：
+### 8. 删除约束
 ```sql
     ALTER TABLE tb_cons2
     DROP CONSTRAINT uk_tb_cons2_email;
