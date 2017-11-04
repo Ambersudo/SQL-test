@@ -335,7 +335,7 @@ FROM   cq20
 
 - 对于 cq20 ，sum 没有对4个季度进行合计，因为对SQL来说  `group by 序号,城市,年份` ，这3列所拼接成的值都是不一样的,所以返回了每一行。
 
-![pivot](.\img\pivot.png)
+- ![pivot](https://raw.githubusercontent.com/lpd743663/SQL-test/master/img/pivot.png)
 
 - pivot 首先将聚合列之外的列进行分组，并对其实现聚合。
 
