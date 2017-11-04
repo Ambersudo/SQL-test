@@ -380,31 +380,31 @@ num	city	year	quarter	Total
 
 - 对于新列  `quarter ` 对应的 `Q1、Q2、Q3、Q4`中的取值，取中间结果集中与之相对应的值。
 
-- 如对于 `1	北京	2005	Q1 `列中的值就选择中间结果中对应的Total值 `1000.00`
+- 对于 `1	北京	2005`  对应的 `Q1` 的Total值为 `1000.00`，`1	北京	2005`对应的 `Q2、Q3、Q4` 不存在，则返回 `NULL`值
 
-- 具体如下
+- 行转列返回的全部结果如下
 
 ```
-city	year	Q1	Q2	Q3	Q4
-------------------------------------------------
-北京	2005	1000.00	NULL	NULL	NULL
-北京	2005	NULL	1100.00	NULL	NULL
-北京	2005	NULL	NULL	1200.00	NULL
-北京	2005	NULL	NULL	NULL	1300.00
-北京	2006	2000.00	NULL	NULL	NULL
-北京	2006	NULL	2100.00	NULL	NULL
-北京	2006	NULL	NULL	2200.00	NULL
-北京	2006	NULL	NULL	NULL	2300.00
-上海	2005	3000.00	NULL	NULL	NULL
-上海	2005	NULL	3100.00	NULL	NULL
-上海	2005	NULL	NULL	3200.00	NULL
-上海	2006	4000.00	NULL	NULL	NULL
-上海	2006	NULL	4100.00	NULL	NULL
-上海	2006	NULL	NULL	4200.00	NULL
+num	city	year	Q1	Q2	Q3	Q4
+----------------------------------------------------
+1	北京	2005	1000.00	NULL	NULL	NULL
+2	北京	2005	NULL	1100.00	NULL	NULL
+3	北京	2005	NULL	NULL	1200.00	NULL
+4	北京	2005	NULL	NULL	NULL	1300.00
+5	北京	2006	2000.00	NULL	NULL	NULL
+6	北京	2006	NULL	2100.00	NULL	NULL
+7	北京	2006	NULL	NULL	2200.00	NULL
+8	北京	2006	NULL	NULL	NULL	2300.00
+9	上海	2005	3000.00	NULL	NULL	NULL
+10	上海	2005	NULL	3100.00	NULL	NULL
+11	上海	2005	NULL	NULL	3200.00	NULL
+12	上海	2006	4000.00	NULL	NULL	NULL
+13	上海	2006	NULL	4100.00	NULL	NULL
+14	上海	2006	NULL	NULL	4200.00	NULL
 ```
 - 并将上面这个 中间结果pivot表 命名为p
 
-- 最外层的SELECT语句从 pivot 表生成最终结果。
+- 最外层的`SELECT`语句从 `p` 表生成最终结果。
 
 ## 去除NULL值
 
