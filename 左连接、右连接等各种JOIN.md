@@ -258,7 +258,7 @@ FROM   department
           ON employee.DepartmentID = department.DepartmentID
 ```
 
-输出▼
+输出   2.1    2.2    2.3  ▼
 
 ```
 左连接：以左表为基准，返回查询值。
